@@ -17,7 +17,24 @@ class XMLDocument
     /**
      * @var array
      */
+    public array $values = [];
+
+    /**
+     * @var array
+     */
     protected array $attribs = [];
+
+    /**
+     * @param XMLDocument $child
+     * @return void
+     */
+    public function addChild(XMLDocument $child): void
+    {
+        if ( is_object($this->children) ) {
+            $this->children = [$this->children];
+        }
+        $this->children[] = $child;
+    }
 
     /**
      * @return string
@@ -27,6 +44,11 @@ class XMLDocument
         $attrs = [];
         foreach ($this->attribs as $attrKey => $attrVal) {
             $attrs[] = "$attrKey='$attrVal'";
+        }
+
+        $values = [];
+        foreach ($this->values as $valKey => $val) {
+            $values[] = "<$valKey>$val</$valKey>";
         }
 
         $childDoc = '';
@@ -42,6 +64,7 @@ class XMLDocument
 
         return "<{$this->tagName} " . (implode(' ', $attrs)) . ">"
             . $childDoc
+            . implode('', $values)
             . "</{$this->tagName}>";
     }
 }

@@ -4,11 +4,11 @@ namespace SmartdataCo\OnlineStoneSdkPhp;
 
 use PHPUnit\Framework\TestCase;
 
-class TransactionTest extends TestCase
+class OperationTest extends TestCase
 {
     public function testAuthorizeWithDelayedCapture()
     {
-        $transaction = new Transaction(Transaction::TYPE_AUTHORIZE);
+        $transaction = new Operation(Operation::TYPE_AUTHORIZE);
         var_dump($transaction->toXML());
         $this->fail();
     }
